@@ -31,7 +31,12 @@ RUN gem install rails -v=6.0.4
 # RUN bundle add rspec-rails
 # RUN bundle add react-rails
 
+# RUN rails webpacker:install
 # RUN rails g react:install
+# RUN rails g rspec:install
+# once up with docker-compose
+# RUN rake db:create
+
 # # RUN rails g react:component HelloWorld name:string
 # RUN bundle install --verbose --jobs 20 --retry 5
 
