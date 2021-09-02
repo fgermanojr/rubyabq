@@ -25,20 +25,30 @@ RUN yarn -v
 
 RUN gem install rails -v=6.0.4
 
-# don't run bundle -B, is that messing up
+# dot builds in current directory
 RUN rails new . --database=postgresql --webpacker=react
 
-RUN bundle add rspec-rails
-RUN bundle add react-rails
+# docker exec -it rubyabq_web_1 bash
+# do this manually so rspec-rails is added to development, test
+# RUN bundle add rspec-rails
+# RUN bundle add react-rails
 
-RUN rails webpacker:install
-RUN rails g react:install
-RUN rails g rspec:install
-# once up with docker-compose
-# RUN rake db:create
-RUN bundle install
-# # RUN rails g react:component HelloWorld name:string
-# did react install create a test component?
+# # had to run manually
+# RUN rails webpacker:install
+# RUN rails g react:install
+# RUN rails g rspec:install
+# RUN rails g react:component HelloWorld name:string
+# add react component HelloWorld to app/views/pages/index.html.erb
+
+# RUN bundle install
+# # once up with docker-compose so have db service
+# --- manually add username, password, and host to config/database.yml
+# --- specifically, postgres, postgres, db
+# rake db:create
+
+# add root 'pages#index' to config/routes.rb
+# rails g controller pages index
+
 # RUN bundle install --verbose --jobs 20 --retry 5
 
 EXPOSE 2999
@@ -54,8 +64,8 @@ CMD ["bash"]
 # the server with rails s -p 2999 -b 0.0.0.0
 # after you have done any tasks
 
-# This works
+# This works for web container syncing to rubyabq.
 # docker build .
 # use docker network create my_net beforehand
-#  docker run -v /Users/frankatjackrabbit/src/rubyabq:/rubyabq 
-#             -it rubyabq_rubyabq --network my_net bash
+#  docker run -v /Users/frankatjackrabbit/src/rubyabq:/rubyabq -it rubyabq_rubyabq --network my_net bash
+#
