@@ -26,21 +26,20 @@ RUN yarn -v
 RUN gem install rails -v=6.0.4
 
 # don't run bundle -B, is that messing up
-# RUN rails new . --database=postgresql --webpacker=react
+RUN rails new . --database=postgresql --webpacker=react
 
-# RUN bundle add rspec-rails
-# RUN bundle add react-rails
+RUN bundle add rspec-rails
+RUN bundle add react-rails
 
-# RUN rails webpacker:install
-# RUN rails g react:install
-# RUN rails g rspec:install
+RUN rails webpacker:install
+RUN rails g react:install
+RUN rails g rspec:install
 # once up with docker-compose
 # RUN rake db:create
-
+RUN bundle install
 # # RUN rails g react:component HelloWorld name:string
+# did react install create a test component?
 # RUN bundle install --verbose --jobs 20 --retry 5
-
-# there is a series of post rails install steps
 
 EXPOSE 2999
 
@@ -50,10 +49,13 @@ EXPOSE 2999
 CMD ["bash"]
 
 # you always want to do this so you can do
-# stuff before starting the server
+# stuff before starting the server.
 # so we just run bash and let you run
 # the server with rails s -p 2999 -b 0.0.0.0
+# after you have done any tasks
 
 # This works
 # docker build .
-#  docker run -v /Users/frankatjackrabbit/src/rubyabq:/rubyabq -it rubyabq_rubyabq  bash
+# use docker network create my_net beforehand
+#  docker run -v /Users/frankatjackrabbit/src/rubyabq:/rubyabq 
+#             -it rubyabq_rubyabq --network my_net bash
