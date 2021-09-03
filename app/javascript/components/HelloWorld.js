@@ -5,9 +5,11 @@ import PropTypes from 'prop-types'
 class HelloWorld extends React.Component {
   render () {
     return (
+      <React.Fragment>
         <div>
-        Name: {this.props.name}
+          Name: {this.props.name}
         </div>
+      </React.Fragment>
     );
   }
 }

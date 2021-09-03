@@ -1,7 +1,7 @@
 FROM ruby:3.0.1
 # underlying OS should be alpine
 
-# TBD too much postgres, just need end user psql
+# TBD too much postgres, just need end user stuff for psql
 RUN apt-get update -qq && apt-get install -y build-essential bash postgresql libpq-dev postgresql-client nodejs npm vim libssl-dev curl
 
 # I think there are version issues with this yarn version;
@@ -27,7 +27,7 @@ RUN gem install rails -v=6.0.4
 
 # dot builds in current directory
 RUN rails new . --database=postgresql --webpacker=react
-
+# rails new runs a bundle install at the end.
 # docker exec -it rubyabq_web_1 bash
 # do this manually so rspec-rails is added to development, test
 # RUN bundle add rspec-rails

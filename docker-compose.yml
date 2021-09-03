@@ -6,7 +6,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-#    env_file: ./config/.env, uses =, rename to .env_db
+#    env_file: ./config/.env_db;TBD
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DATABASE: postgres_db
@@ -16,10 +16,10 @@ services:
   web:
     build: .
     command: tail -f /dev/null
+# command: bash
 # bash was shutting down immediately; above works
 # command: bash -c "foreman start -f Procfile.dev"
 # command: rails s -p 2999 -b 0.0.0.0
-# command: bash
     volumes:
       - './:/rubyabq:rw'
     ports:
