@@ -1,5 +1,5 @@
 FROM ruby:3.0.1
-# underlying OS should be alpine
+# underlying OS should be alpine, but appears to be debian 10
 
 # TBD too much postgres, just need end user stuff for psql
 RUN apt-get update -qq && apt-get install -y build-essential bash postgresql libpq-dev postgresql-client nodejs npm vim libssl-dev curl
@@ -9,9 +9,6 @@ RUN apt-get update -qq && apt-get install -y build-essential bash postgresql lib
 # xxx RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 # xxx RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 # RUN apt-get install -y --no-install-recommends yarn
-
-# this is the subdirectory of parent directory
-# the parent contains the docker files; the git repo is at the subdir
 
 WORKDIR /rubyabq
 
