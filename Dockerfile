@@ -1,21 +1,19 @@
 FROM ruby:3.0.1
 # underlying OS should be alpine, but appears to be debian 10
 
-# TBD too much postgres, just need end user stuff for psql
+# TBD too much postgres, just need end user stuff for psql.
+# TBD Change. remove nodejs npm; instead install from nvm
 RUN apt-get update -qq && apt-get install -y build-essential bash postgresql libpq-dev postgresql-client nodejs npm vim libssl-dev curl
-
-# I think there are version issues with this yarn version;
-# use npm install instead
-# xxx RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-# xxx RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-# RUN apt-get install -y --no-install-recommends yarn
 
 WORKDIR /rubyabq
 
-RUN nodejs -v
-RUN npm -v
+#new RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+#new RUN source ~/.bashrc
+#new RUN command -v nvm
+#new RUN nvm install node
+#new RUN npm --version
 
-# install yarn using npm; then use to install desired js libs
+# install yarn using npm
 RUN npm install -g yarn
 # RUN yarn install --check-files
 RUN yarn -v
@@ -25,8 +23,9 @@ RUN gem install rails -v=6.0.4
 # dot builds in current directory
 RUN rails new . --database=postgresql --webpacker=react
 # rails new runs a bundle install at the end.
-# docker exec -it rubyabq_web_1 bash
-# do this manually so rspec-rails is added to development, test
+# docker exec -it rubyabq_web_1 -v ./:/rubyabq bash
+
+# do below manually by edit so rspec-rails is added to development, test
 # RUN bundle add rspec-rails
 # RUN bundle add react-rails
 
