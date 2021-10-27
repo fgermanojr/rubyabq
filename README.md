@@ -25,3 +25,4 @@ It illustrates the use of docker, rails, and postgresql.
 
 * Deployment instructions/
 	for local development
+gitpgi
